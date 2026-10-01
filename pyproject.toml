@@ -1,0 +1,13 @@
+[project]
+name = "live-commit-guard"
+version = "0.1.0"
+description = "Reference pattern: gate the irreversible commit of a Gemini Live tool call on what the user says while it is in flight."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "google-genai==2.25.0",
+    "python-dotenv",
+]
+
+[tool.uv]
+package = false

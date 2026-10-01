@@ -1,0 +1,165 @@
+{"scenario": "G2", "run": 0, "t_ms": 0, "event": "scenario_meta", "meta": "model `gemini-3.8-live`, google-genai 2.25.0, 2026-10-01 08:43, guard=off (hold=False, dedupe=False, inject=False, abandon=False; grace 1.5 s, transcript timeout 3.0 s, on timeout cancel, dedupe window 30.0 s), behavior=unset, follow-up bring.wav 0.5 s after the call, stop clip 1.0 s after the first model audio that follows the call, service prepare 7.0 s then instant commit. Times are ms since session start; `behaviors` is H/D/I/A for hold/dedupe/inject/abandon.", "guard": "off", "argv": ["--name", "G2_off", "--scenario", "G2", "--guard", "off", "-n", "3", "--followup-audio", "assets/audio/bring.wav", "--followup-after-tool-call", "0.5", "--stop-after-model-speech", "1.0", "--latency", "7.0"]}
+{"scenario": "G2_off", "run": 1, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:43:18", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "off", "behaviors": {"hold": false, "dedupe": false, "inject": false, "abandon": false}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_off", "run": 1, "t_ms": 290, "event": "setup_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 291, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_off", "run": 1, "t_ms": 484, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 484, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_off", "run": 1, "t_ms": 2893, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_off", "run": 1, "t_ms": 4121, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.484}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "tool_call_received", "call_id": "call_97451", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_97451", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 4122, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 4624, "event": "followup_queued", "since_tool_call_ms": 502}
+{"scenario": "G2_off", "run": 1, "t_ms": 4624, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_off", "run": 1, "t_ms": 4762, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 4762, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 1, "t_ms": 7426, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_off", "run": 1, "t_ms": 8835, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_off", "run": 1, "t_ms": 8836, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 8836, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.762}
+{"scenario": "G2_off", "run": 1, "t_ms": 8967, "event": "audio_start"}
+{"scenario": "G2_off", "run": 1, "t_ms": 8967, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4845}
+{"scenario": "G2_off", "run": 1, "t_ms": 8967, "event": "model_transcript", "text": "I'm booking that tomorrow "}
+{"scenario": "G2_off", "run": 1, "t_ms": 9257, "event": "model_transcript", "text": "at 3 PM"}
+{"scenario": "G2_off", "run": 1, "t_ms": 9536, "event": "model_transcript", "text": " for you. Be sure"}
+{"scenario": "G2_off", "run": 1, "t_ms": 9719, "event": "model_transcript", "text": " to bring any relevant documents"}
+{"scenario": "G2_off", "run": 1, "t_ms": 9970, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_off", "run": 1, "t_ms": 9970, "event": "stop_sent", "since_tool_call_ms": 5848, "since_book_audio_end_ms": 7077}
+{"scenario": "G2_off", "run": 1, "t_ms": 10019, "event": "model_transcript", "text": " or previous"}
+{"scenario": "G2_off", "run": 1, "t_ms": 10218, "event": "model_transcript", "text": " records you might need."}
+{"scenario": "G2_off", "run": 1, "t_ms": 10218, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "9.960s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 10218, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 1, "t_ms": 10219, "event": "audio_segment", "closed_by": "interrupted", "first_ms": 8967, "last_ms": 10218, "chunks": 16}
+{"scenario": "G2_off", "run": 1, "t_ms": 10219, "event": "interrupted"}
+{"scenario": "G2_off", "run": 1, "t_ms": 10219, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_off", "run": 1, "t_ms": 10293, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 11125, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_off", "run": 1, "t_ms": 11125, "event": "guard_decision", "job_id": "job-1", "call_id": "call_97451", "decision": "commit", "reason": "guard hold off", "state": "held", "abandoned": false}
+{"scenario": "G2_off", "run": 1, "t_ms": 11125, "event": "guard_committed", "job_id": "job-1", "result": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 1, "t_ms": 11126, "event": "guard_tool_response_sent", "call_id": "call_97451", "job_id": "job-1", "response": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 1, "t_ms": 12169, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_off", "run": 1, "t_ms": 13436, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_off", "run": 1, "t_ms": 13436, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.218}
+{"scenario": "G2_off", "run": 1, "t_ms": 13436, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.200s"}
+{"scenario": "G2_off", "run": 1, "t_ms": 14187, "event": "audio_start"}
+{"scenario": "G2_off", "run": 1, "t_ms": 14187, "event": "model_transcript", "text": "The booking for tomorrow "}
+{"scenario": "G2_off", "run": 1, "t_ms": 14417, "event": "model_transcript", "text": "at 3 PM"}
+{"scenario": "G2_off", "run": 1, "t_ms": 14799, "event": "model_transcript", "text": " has already been made."}
+{"scenario": "G2_off", "run": 1, "t_ms": 14999, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 14187, "last_ms": 14972, "chunks": 13}
+{"scenario": "G2_off", "run": 1, "t_ms": 14999, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 17636, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 1, "t_ms": 19152, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_off", "run": 1, "t_ms": 19162, "event": "session_closed"}
+{"scenario": "G2_off", "run": 1, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 1, "guard": "off", "behaviors": "----", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4122, "stop_sent_at_ms": 9970, "stop_audio_end_ms": 12169, "stop_onset_ms": 10218, "interrupted_ms": 10219, "stop_transcript_ms": 13436, "decision": "commit @11125: guard hold off", "time_from_stop_to_decision_ms": 1155, "service": "committed BK-1001 @11125", "cancellation_before_commit": "no", "unwanted_commit": "yes", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "booked @11126", "notes_ms": "none", "note_cut_reply": "no", "model_after_stop": "The booking for tomorrow at 3 PM has already been made.", "claim": "claims_booked", "actual": "booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_97451", "name": "book_slot", "at_ms": 4122, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 8967, "text": "I'm booking that tomorrow at 3 PM for you. Be sure to bring any relevant documents or previous records you might need."}, {"start_ms": 14187, "text": "The booking for tomorrow at 3 PM has already been made."}], "statement_used": "The booking for tomorrow at 3 PM has already been made.", "note_cuts": [], "reply_after_note": [], "notes": [], "decisions": [{"at": 11.124823666992597, "job_id": "job-1", "call_id": "call_97451", "decision": "commit", "reason": "guard hold off", "state": "held", "at_ms": 11125}], "duplicates": [], "responses": [{"at_ms": 11126, "call_id": "call_97451", "payload": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}], "utterances": [{"onset_ms": 484, "resolved_ms": 4122, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4762, "resolved_ms": 8836, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10218, "resolved_ms": 13436, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 484, "type": "ACTIVITY_START"}, {"at_ms": 4122, "type": "ACTIVITY_END"}, {"at_ms": 4762, "type": "ACTIVITY_START"}, {"at_ms": 8836, "type": "ACTIVITY_END"}, {"at_ms": 10218, "type": "ACTIVITY_START"}, {"at_ms": 13436, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 291, "end_ms": 2893}, {"label": "followup", "start_ms": 4624, "end_ms": 7426}, {"label": "stop", "start_ms": 9970, "end_ms": 12169}], "input_transcripts": [{"at_ms": 4121, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8835, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13436, "text": "Actually, stop. Don't book it."}], "commits": [{"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001", "job_id": "job-1", "at_ms": 11125}], "cancelled": [], "interrupted_all_ms": [10219], "turn_complete_ms": [4122, 10293, 17636], "tool_call_cancellations": []}}
+{"scenario": "G2_off", "run": 2, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:43:39", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "off", "behaviors": {"hold": false, "dedupe": false, "inject": false, "abandon": false}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_off", "run": 2, "t_ms": 324, "event": "setup_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 325, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_off", "run": 2, "t_ms": 519, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 520, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_off", "run": 2, "t_ms": 2927, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_off", "run": 2, "t_ms": 4153, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_off", "run": 2, "t_ms": 4153, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 4154, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.52}
+{"scenario": "G2_off", "run": 2, "t_ms": 4154, "event": "tool_call_received", "call_id": "call_128378", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_off", "run": 2, "t_ms": 4154, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_128378", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_off", "run": 2, "t_ms": 4157, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 4157, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 4656, "event": "followup_queued", "since_tool_call_ms": 502}
+{"scenario": "G2_off", "run": 2, "t_ms": 4656, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_off", "run": 2, "t_ms": 4802, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 4802, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 2, "t_ms": 7458, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_off", "run": 2, "t_ms": 8872, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_off", "run": 2, "t_ms": 8873, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 8873, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.802}
+{"scenario": "G2_off", "run": 2, "t_ms": 9066, "event": "audio_start"}
+{"scenario": "G2_off", "run": 2, "t_ms": 9066, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4912}
+{"scenario": "G2_off", "run": 2, "t_ms": 9066, "event": "model_transcript", "text": "I am booking that "}
+{"scenario": "G2_off", "run": 2, "t_ms": 9322, "event": "model_transcript", "text": "time for you now."}
+{"scenario": "G2_off", "run": 2, "t_ms": 9624, "event": "model_transcript", "text": " Please wait"}
+{"scenario": "G2_off", "run": 2, "t_ms": 9826, "event": "model_transcript", "text": " for the confirmation."}
+{"scenario": "G2_off", "run": 2, "t_ms": 9954, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 9066, "last_ms": 9929, "chunks": 11}
+{"scenario": "G2_off", "run": 2, "t_ms": 9954, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 10068, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_off", "run": 2, "t_ms": 10068, "event": "stop_sent", "since_tool_call_ms": 5914, "since_book_audio_end_ms": 7141}
+{"scenario": "G2_off", "run": 2, "t_ms": 10216, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "10s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 10216, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 2, "t_ms": 10216, "event": "interrupted"}
+{"scenario": "G2_off", "run": 2, "t_ms": 10216, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_off", "run": 2, "t_ms": 10220, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 11154, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_off", "run": 2, "t_ms": 11154, "event": "guard_decision", "job_id": "job-1", "call_id": "call_128378", "decision": "commit", "reason": "guard hold off", "state": "held", "abandoned": false}
+{"scenario": "G2_off", "run": 2, "t_ms": 11154, "event": "guard_committed", "job_id": "job-1", "result": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 2, "t_ms": 11154, "event": "guard_tool_response_sent", "call_id": "call_128378", "job_id": "job-1", "response": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 2, "t_ms": 12270, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_off", "run": 2, "t_ms": 13535, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_off", "run": 2, "t_ms": 13535, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.216}
+{"scenario": "G2_off", "run": 2, "t_ms": 13538, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.320s"}
+{"scenario": "G2_off", "run": 2, "t_ms": 13985, "event": "audio_start"}
+{"scenario": "G2_off", "run": 2, "t_ms": 13985, "event": "model_transcript", "text": "I am sorry, but "}
+{"scenario": "G2_off", "run": 2, "t_ms": 14258, "event": "model_transcript", "text": "the booking was already"}
+{"scenario": "G2_off", "run": 2, "t_ms": 14506, "event": "model_transcript", "text": " made and confirmed."}
+{"scenario": "G2_off", "run": 2, "t_ms": 14863, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 13985, "last_ms": 14836, "chunks": 14}
+{"scenario": "G2_off", "run": 2, "t_ms": 14864, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 17662, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 2, "t_ms": 19202, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_off", "run": 2, "t_ms": 19214, "event": "session_closed"}
+{"scenario": "G2_off", "run": 2, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 2, "guard": "off", "behaviors": "----", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4154, "stop_sent_at_ms": 10068, "stop_audio_end_ms": 12270, "stop_onset_ms": 10216, "interrupted_ms": 10216, "stop_transcript_ms": 13535, "decision": "commit @11154: guard hold off", "time_from_stop_to_decision_ms": 1086, "service": "committed BK-1001 @11154", "cancellation_before_commit": "no", "unwanted_commit": "yes", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "booked @11154", "notes_ms": "none", "note_cut_reply": "no", "model_after_stop": "I am sorry, but the booking was already made and confirmed.", "claim": "claims_booked", "actual": "booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_128378", "name": "book_slot", "at_ms": 4154, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 9066, "text": "I am booking that time for you now. Please wait for the confirmation."}, {"start_ms": 13985, "text": "I am sorry, but the booking was already made and confirmed."}], "statement_used": "I am sorry, but the booking was already made and confirmed.", "note_cuts": [], "reply_after_note": [], "notes": [], "decisions": [{"at": 11.154189458000474, "job_id": "job-1", "call_id": "call_128378", "decision": "commit", "reason": "guard hold off", "state": "held", "at_ms": 11154}], "duplicates": [], "responses": [{"at_ms": 11154, "call_id": "call_128378", "payload": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}], "utterances": [{"onset_ms": 520, "resolved_ms": 4154, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4802, "resolved_ms": 8873, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10216, "resolved_ms": 13535, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 519, "type": "ACTIVITY_START"}, {"at_ms": 4153, "type": "ACTIVITY_END"}, {"at_ms": 4802, "type": "ACTIVITY_START"}, {"at_ms": 8873, "type": "ACTIVITY_END"}, {"at_ms": 10216, "type": "ACTIVITY_START"}, {"at_ms": 13538, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 325, "end_ms": 2927}, {"label": "followup", "start_ms": 4656, "end_ms": 7458}, {"label": "stop", "start_ms": 10068, "end_ms": 12270}], "input_transcripts": [{"at_ms": 4153, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8872, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13535, "text": "Actually, stop. Don't book it."}], "commits": [{"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001", "job_id": "job-1", "at_ms": 11154}], "cancelled": [], "interrupted_all_ms": [10216], "turn_complete_ms": [4157, 10220, 17662], "tool_call_cancellations": []}}
+{"scenario": "G2_off", "run": 3, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:44:00", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "off", "behaviors": {"hold": false, "dedupe": false, "inject": false, "abandon": false}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_off", "run": 3, "t_ms": 328, "event": "setup_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 330, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_off", "run": 3, "t_ms": 524, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 524, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_off", "run": 3, "t_ms": 2930, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_off", "run": 3, "t_ms": 4151, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_off", "run": 3, "t_ms": 4153, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 4153, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.524}
+{"scenario": "G2_off", "run": 3, "t_ms": 4153, "event": "tool_call_received", "call_id": "call_92588", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_off", "run": 3, "t_ms": 4153, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_92588", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_off", "run": 3, "t_ms": 4154, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 4154, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 4655, "event": "followup_queued", "since_tool_call_ms": 502}
+{"scenario": "G2_off", "run": 3, "t_ms": 4655, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_off", "run": 3, "t_ms": 4793, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 4793, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 3, "t_ms": 7457, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.793}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "audio_start"}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4714}
+{"scenario": "G2_off", "run": 3, "t_ms": 8867, "event": "model_transcript", "text": "I'm booking that slot "}
+{"scenario": "G2_off", "run": 3, "t_ms": 8973, "event": "model_transcript", "text": "for you now."}
+{"scenario": "G2_off", "run": 3, "t_ms": 9265, "event": "model_transcript", "text": " Please bring your identification"}
+{"scenario": "G2_off", "run": 3, "t_ms": 9432, "event": "model_transcript", "text": " document."}
+{"scenario": "G2_off", "run": 3, "t_ms": 9705, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 8867, "last_ms": 9681, "chunks": 15}
+{"scenario": "G2_off", "run": 3, "t_ms": 9705, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 9869, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_off", "run": 3, "t_ms": 9869, "event": "stop_sent", "since_tool_call_ms": 5716, "since_book_audio_end_ms": 6939}
+{"scenario": "G2_off", "run": 3, "t_ms": 10108, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "9.880s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 10108, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_off", "run": 3, "t_ms": 10109, "event": "interrupted"}
+{"scenario": "G2_off", "run": 3, "t_ms": 10109, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_off", "run": 3, "t_ms": 10112, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 11156, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_off", "run": 3, "t_ms": 11156, "event": "guard_decision", "job_id": "job-1", "call_id": "call_92588", "decision": "commit", "reason": "guard hold off", "state": "held", "abandoned": false}
+{"scenario": "G2_off", "run": 3, "t_ms": 11156, "event": "guard_committed", "job_id": "job-1", "result": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 3, "t_ms": 11157, "event": "guard_tool_response_sent", "call_id": "call_92588", "job_id": "job-1", "response": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}
+{"scenario": "G2_off", "run": 3, "t_ms": 12070, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_off", "run": 3, "t_ms": 13340, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_off", "run": 3, "t_ms": 13341, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.108}
+{"scenario": "G2_off", "run": 3, "t_ms": 13341, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.120s"}
+{"scenario": "G2_off", "run": 3, "t_ms": 14199, "event": "audio_start"}
+{"scenario": "G2_off", "run": 3, "t_ms": 14199, "event": "model_transcript", "text": "I'm sorry, but the "}
+{"scenario": "G2_off", "run": 3, "t_ms": 14426, "event": "model_transcript", "text": "booking for tomorrow"}
+{"scenario": "G2_off", "run": 3, "t_ms": 14601, "event": "model_transcript", "text": " at 3pm"}
+{"scenario": "G2_off", "run": 3, "t_ms": 14856, "event": "model_transcript", "text": " has already been made."}
+{"scenario": "G2_off", "run": 3, "t_ms": 15153, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 14199, "last_ms": 15124, "chunks": 12}
+{"scenario": "G2_off", "run": 3, "t_ms": 15153, "event": "generation_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 18628, "event": "turn_complete"}
+{"scenario": "G2_off", "run": 3, "t_ms": 20137, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_off", "run": 3, "t_ms": 20148, "event": "session_closed"}
+{"scenario": "G2_off", "run": 3, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 3, "guard": "off", "behaviors": "----", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4153, "stop_sent_at_ms": 9869, "stop_audio_end_ms": 12070, "stop_onset_ms": 10108, "interrupted_ms": 10109, "stop_transcript_ms": 13341, "decision": "commit @11156: guard hold off", "time_from_stop_to_decision_ms": 1287, "service": "committed BK-1001 @11156", "cancellation_before_commit": "no", "unwanted_commit": "yes", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "booked @11157", "notes_ms": "none", "note_cut_reply": "no", "model_after_stop": "I'm sorry, but the booking for tomorrow at 3pm has already been made.", "claim": "claims_booked", "actual": "booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_92588", "name": "book_slot", "at_ms": 4153, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 8867, "text": "I'm booking that slot for you now. Please bring your identification document."}, {"start_ms": 14199, "text": "I'm sorry, but the booking for tomorrow at 3pm has already been made."}], "statement_used": "I'm sorry, but the booking for tomorrow at 3pm has already been made.", "note_cuts": [], "reply_after_note": [], "notes": [], "decisions": [{"at": 11.156278375070542, "job_id": "job-1", "call_id": "call_92588", "decision": "commit", "reason": "guard hold off", "state": "held", "at_ms": 11156}], "duplicates": [], "responses": [{"at_ms": 11157, "call_id": "call_92588", "payload": {"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001"}}], "utterances": [{"onset_ms": 524, "resolved_ms": 4153, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4793, "resolved_ms": 8867, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10108, "resolved_ms": 13341, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 524, "type": "ACTIVITY_START"}, {"at_ms": 4153, "type": "ACTIVITY_END"}, {"at_ms": 4793, "type": "ACTIVITY_START"}, {"at_ms": 8867, "type": "ACTIVITY_END"}, {"at_ms": 10108, "type": "ACTIVITY_START"}, {"at_ms": 13341, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 330, "end_ms": 2930}, {"label": "followup", "start_ms": 4655, "end_ms": 7457}, {"label": "stop", "start_ms": 9869, "end_ms": 12070}], "input_transcripts": [{"at_ms": 4151, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8867, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13340, "text": "Actually, stop. Don't book it."}], "commits": [{"status": "booked", "slot": "tomorrow 3pm", "confirmation_id": "BK-1001", "job_id": "job-1", "at_ms": 11156}], "cancelled": [], "interrupted_all_ms": [10109], "turn_complete_ms": [4154, 10112, 18628], "tool_call_cancellations": []}}

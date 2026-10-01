@@ -1,0 +1,178 @@
+{"scenario": "G2", "run": 0, "t_ms": 0, "event": "scenario_meta", "meta": "model `gemini-3.8-live`, google-genai 2.25.0, 2026-10-01 08:39, guard=on (hold=True, dedupe=True, inject=True, abandon=True; grace 1.5 s, transcript timeout 3.0 s, on timeout cancel, dedupe window 30.0 s), behavior=unset, follow-up bring.wav 0.5 s after the call, stop clip 1.0 s after the first model audio that follows the call, service prepare 7.0 s then instant commit. Times are ms since session start; `behaviors` is H/D/I/A for hold/dedupe/inject/abandon.", "guard": "on", "argv": ["--name", "G2_on", "--scenario", "G2", "--guard", "on", "-n", "3", "--followup-audio", "assets/audio/bring.wav", "--followup-after-tool-call", "0.5", "--stop-after-model-speech", "1.0", "--latency", "7.0"]}
+{"scenario": "G2_on", "run": 1, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:39:16", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "on", "behaviors": {"hold": true, "dedupe": true, "inject": true, "abandon": true}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_on", "run": 1, "t_ms": 329, "event": "setup_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 331, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_on", "run": 1, "t_ms": 512, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 512, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_on", "run": 1, "t_ms": 2930, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_on", "run": 1, "t_ms": 4158, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_on", "run": 1, "t_ms": 4159, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 4159, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.512}
+{"scenario": "G2_on", "run": 1, "t_ms": 4160, "event": "tool_call_received", "call_id": "call_136693", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_on", "run": 1, "t_ms": 4160, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_136693", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_on", "run": 1, "t_ms": 4160, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 4161, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 4661, "event": "followup_queued", "since_tool_call_ms": 501}
+{"scenario": "G2_on", "run": 1, "t_ms": 4662, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_on", "run": 1, "t_ms": 4797, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 4797, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 1, "t_ms": 7463, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_on", "run": 1, "t_ms": 8873, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_on", "run": 1, "t_ms": 8873, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 8873, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.797}
+{"scenario": "G2_on", "run": 1, "t_ms": 8877, "event": "audio_start"}
+{"scenario": "G2_on", "run": 1, "t_ms": 8877, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4717}
+{"scenario": "G2_on", "run": 1, "t_ms": 8877, "event": "model_transcript", "text": "I'm getting that appointment "}
+{"scenario": "G2_on", "run": 1, "t_ms": 9057, "event": "model_transcript", "text": "booked for you now."}
+{"scenario": "G2_on", "run": 1, "t_ms": 9406, "event": "model_transcript", "text": " Please remember"}
+{"scenario": "G2_on", "run": 1, "t_ms": 9532, "event": "model_transcript", "text": " to bring your identification"}
+{"scenario": "G2_on", "run": 1, "t_ms": 9771, "event": "model_transcript", "text": " and any"}
+{"scenario": "G2_on", "run": 1, "t_ms": 9879, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_on", "run": 1, "t_ms": 9879, "event": "stop_sent", "since_tool_call_ms": 5719, "since_book_audio_end_ms": 6949}
+{"scenario": "G2_on", "run": 1, "t_ms": 10076, "event": "model_transcript", "text": " relevant documents."}
+{"scenario": "G2_on", "run": 1, "t_ms": 10115, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "9.880s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 10115, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 1, "t_ms": 10116, "event": "audio_segment", "closed_by": "interrupted", "first_ms": 8877, "last_ms": 10076, "chunks": 18}
+{"scenario": "G2_on", "run": 1, "t_ms": 10116, "event": "interrupted"}
+{"scenario": "G2_on", "run": 1, "t_ms": 10116, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_on", "run": 1, "t_ms": 10152, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 11162, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_on", "run": 1, "t_ms": 12080, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13345, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_on", "run": 1, "t_ms": 13345, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.115}
+{"scenario": "G2_on", "run": 1, "t_ms": 13345, "event": "guard_decision", "job_id": "job-1", "call_id": "call_136693", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "abandoned": false}
+{"scenario": "G2_on", "run": 1, "t_ms": 13345, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.120s"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13346, "event": "audio_start"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13346, "event": "model_transcript", "text": "The booking for tomorrow "}
+{"scenario": "G2_on", "run": 1, "t_ms": 13346, "event": "guard_cancelled", "job_id": "job-1", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\""}
+{"scenario": "G2_on", "run": 1, "t_ms": 13349, "event": "guard_tool_response_sent", "call_id": "call_136693", "job_id": "job-1", "response": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}
+{"scenario": "G2_on", "run": 1, "t_ms": 13349, "event": "guard_status_note_sent", "job_id": "job-1", "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}
+{"scenario": "G2_on", "run": 1, "t_ms": 13366, "event": "audio_segment", "closed_by": "interrupted", "first_ms": 13346, "last_ms": 13346, "chunks": 2}
+{"scenario": "G2_on", "run": 1, "t_ms": 13366, "event": "interrupted"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13366, "event": "guard_interrupted_seen", "caused_by_own_note": true}
+{"scenario": "G2_on", "run": 1, "t_ms": 13373, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13852, "event": "audio_start"}
+{"scenario": "G2_on", "run": 1, "t_ms": 13852, "event": "model_transcript", "text": "The booking was cancelled "}
+{"scenario": "G2_on", "run": 1, "t_ms": 14180, "event": "model_transcript", "text": "and nothing was scheduled."}
+{"scenario": "G2_on", "run": 1, "t_ms": 14559, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 13852, "last_ms": 14529, "chunks": 11}
+{"scenario": "G2_on", "run": 1, "t_ms": 14559, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 16717, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 1, "t_ms": 18231, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_on", "run": 1, "t_ms": 18241, "event": "session_closed"}
+{"scenario": "G2_on", "run": 1, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 1, "guard": "on", "behaviors": "HDIA", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4160, "stop_sent_at_ms": 9879, "stop_audio_end_ms": 12080, "stop_onset_ms": 10115, "interrupted_ms": 10116, "stop_transcript_ms": 13345, "decision": "cancel @13345: stop intent in user speech: \"Actually, stop. Don't book it.\"", "time_from_stop_to_decision_ms": 3466, "service": "cancelled job-1 @13346 (was prepared)", "cancellation_before_commit": "yes", "unwanted_commit": "no", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "cancelled @13349", "notes_ms": "13349", "note_cut_reply": "'The booking for tomorrow' (20 ms of its audio received)", "model_after_stop": "The booking for tomorrow / The booking was cancelled and nothing was scheduled.", "claim": "claims_not_booked", "actual": "not_booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_136693", "name": "book_slot", "at_ms": 4160, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 8877, "text": "I'm getting that appointment booked for you now. Please remember to bring your identification and any relevant documents."}, {"start_ms": 13346, "text": "The booking for tomorrow"}, {"start_ms": 13852, "text": "The booking was cancelled and nothing was scheduled."}], "statement_used": "The booking for tomorrow The booking was cancelled and nothing was scheduled.", "note_cuts": [{"at_ms": 13366, "text": "The booking for tomorrow", "audio_received_ms": 20}], "reply_after_note": [{"start_ms": 13852, "text": "The booking was cancelled and nothing was scheduled."}], "notes": [{"at_ms": 13349, "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}], "decisions": [{"at": 13.344938124995679, "job_id": "job-1", "call_id": "call_136693", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "at_ms": 13345}], "duplicates": [], "responses": [{"at_ms": 13349, "call_id": "call_136693", "payload": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}], "utterances": [{"onset_ms": 512, "resolved_ms": 4159, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4797, "resolved_ms": 8873, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10115, "resolved_ms": 13345, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 512, "type": "ACTIVITY_START"}, {"at_ms": 4159, "type": "ACTIVITY_END"}, {"at_ms": 4797, "type": "ACTIVITY_START"}, {"at_ms": 8873, "type": "ACTIVITY_END"}, {"at_ms": 10115, "type": "ACTIVITY_START"}, {"at_ms": 13345, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 331, "end_ms": 2930}, {"label": "followup", "start_ms": 4662, "end_ms": 7463}, {"label": "stop", "start_ms": 9879, "end_ms": 12080}], "input_transcripts": [{"at_ms": 4158, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8873, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13345, "text": "Actually, stop. Don't book it."}], "commits": [], "cancelled": [{"job_id": "job-1", "at_ms": 13346, "was": "prepared"}], "interrupted_all_ms": [10116, 13366], "turn_complete_ms": [4161, 10152, 13373, 16717], "tool_call_cancellations": []}}
+{"scenario": "G2_on", "run": 2, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:39:37", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "on", "behaviors": {"hold": true, "dedupe": true, "inject": true, "abandon": true}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_on", "run": 2, "t_ms": 285, "event": "setup_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 292, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_on", "run": 2, "t_ms": 484, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 484, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_on", "run": 2, "t_ms": 2892, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_on", "run": 2, "t_ms": 4117, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_on", "run": 2, "t_ms": 4118, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 4118, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.484}
+{"scenario": "G2_on", "run": 2, "t_ms": 4118, "event": "tool_call_received", "call_id": "call_86564", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_on", "run": 2, "t_ms": 4118, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_86564", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_on", "run": 2, "t_ms": 4119, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 4119, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 4619, "event": "followup_queued", "since_tool_call_ms": 501}
+{"scenario": "G2_on", "run": 2, "t_ms": 4620, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_on", "run": 2, "t_ms": 4755, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 4755, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 2, "t_ms": 7421, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_on", "run": 2, "t_ms": 8827, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_on", "run": 2, "t_ms": 8828, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 8828, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.755}
+{"scenario": "G2_on", "run": 2, "t_ms": 8829, "event": "audio_start"}
+{"scenario": "G2_on", "run": 2, "t_ms": 8829, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4710}
+{"scenario": "G2_on", "run": 2, "t_ms": 8829, "event": "model_transcript", "text": "I am booking the "}
+{"scenario": "G2_on", "run": 2, "t_ms": 8996, "event": "model_transcript", "text": "3:00 p.m. slot tomorrow"}
+{"scenario": "G2_on", "run": 2, "t_ms": 9226, "event": "model_transcript", "text": " for you now."}
+{"scenario": "G2_on", "run": 2, "t_ms": 9496, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 8828, "last_ms": 9468, "chunks": 12}
+{"scenario": "G2_on", "run": 2, "t_ms": 9496, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 9829, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_on", "run": 2, "t_ms": 9829, "event": "stop_sent", "since_tool_call_ms": 5711, "since_book_audio_end_ms": 6937}
+{"scenario": "G2_on", "run": 2, "t_ms": 10064, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "9.880s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 10064, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 2, "t_ms": 10065, "event": "interrupted"}
+{"scenario": "G2_on", "run": 2, "t_ms": 10065, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_on", "run": 2, "t_ms": 10068, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 11120, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_on", "run": 2, "t_ms": 12031, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_on", "run": 2, "t_ms": 13295, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_on", "run": 2, "t_ms": 13295, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.064}
+{"scenario": "G2_on", "run": 2, "t_ms": 13295, "event": "guard_decision", "job_id": "job-1", "call_id": "call_86564", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "abandoned": false}
+{"scenario": "G2_on", "run": 2, "t_ms": 13295, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.120s"}
+{"scenario": "G2_on", "run": 2, "t_ms": 13296, "event": "guard_cancelled", "job_id": "job-1", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\""}
+{"scenario": "G2_on", "run": 2, "t_ms": 13296, "event": "guard_tool_response_sent", "call_id": "call_86564", "job_id": "job-1", "response": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}
+{"scenario": "G2_on", "run": 2, "t_ms": 13296, "event": "guard_status_note_sent", "job_id": "job-1", "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}
+{"scenario": "G2_on", "run": 2, "t_ms": 13311, "event": "interrupted"}
+{"scenario": "G2_on", "run": 2, "t_ms": 13311, "event": "guard_interrupted_seen", "caused_by_own_note": true}
+{"scenario": "G2_on", "run": 2, "t_ms": 13465, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 13975, "event": "audio_start"}
+{"scenario": "G2_on", "run": 2, "t_ms": 13975, "event": "model_transcript", "text": "The booking was cancelled "}
+{"scenario": "G2_on", "run": 2, "t_ms": 14276, "event": "model_transcript", "text": "before it was made,"}
+{"scenario": "G2_on", "run": 2, "t_ms": 14555, "event": "model_transcript", "text": " so nothing is scheduled."}
+{"scenario": "G2_on", "run": 2, "t_ms": 14851, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 13975, "last_ms": 14823, "chunks": 13}
+{"scenario": "G2_on", "run": 2, "t_ms": 14851, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 17629, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 2, "t_ms": 19166, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_on", "run": 2, "t_ms": 19180, "event": "session_closed"}
+{"scenario": "G2_on", "run": 2, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 2, "guard": "on", "behaviors": "HDIA", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4118, "stop_sent_at_ms": 9829, "stop_audio_end_ms": 12031, "stop_onset_ms": 10064, "interrupted_ms": 10065, "stop_transcript_ms": 13295, "decision": "cancel @13295: stop intent in user speech: \"Actually, stop. Don't book it.\"", "time_from_stop_to_decision_ms": 3466, "service": "cancelled job-1 @13295 (was prepared)", "cancellation_before_commit": "yes", "unwanted_commit": "no", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "cancelled @13296", "notes_ms": "13296", "note_cut_reply": "no", "model_after_stop": "The booking was cancelled before it was made, so nothing is scheduled.", "claim": "claims_not_booked", "actual": "not_booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_86564", "name": "book_slot", "at_ms": 4118, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 8829, "text": "I am booking the 3:00 p.m. slot tomorrow for you now."}, {"start_ms": 13975, "text": "The booking was cancelled before it was made, so nothing is scheduled."}], "statement_used": "The booking was cancelled before it was made, so nothing is scheduled.", "note_cuts": [], "reply_after_note": [{"start_ms": 13975, "text": "The booking was cancelled before it was made, so nothing is scheduled."}], "notes": [{"at_ms": 13296, "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}], "decisions": [{"at": 13.295321708079427, "job_id": "job-1", "call_id": "call_86564", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "at_ms": 13295}], "duplicates": [], "responses": [{"at_ms": 13296, "call_id": "call_86564", "payload": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}], "utterances": [{"onset_ms": 484, "resolved_ms": 4118, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4755, "resolved_ms": 8828, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10064, "resolved_ms": 13295, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 484, "type": "ACTIVITY_START"}, {"at_ms": 4118, "type": "ACTIVITY_END"}, {"at_ms": 4755, "type": "ACTIVITY_START"}, {"at_ms": 8828, "type": "ACTIVITY_END"}, {"at_ms": 10064, "type": "ACTIVITY_START"}, {"at_ms": 13295, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 292, "end_ms": 2892}, {"label": "followup", "start_ms": 4620, "end_ms": 7421}, {"label": "stop", "start_ms": 9829, "end_ms": 12031}], "input_transcripts": [{"at_ms": 4117, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8827, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13295, "text": "Actually, stop. Don't book it."}], "commits": [], "cancelled": [{"job_id": "job-1", "at_ms": 13295, "was": "prepared"}], "interrupted_all_ms": [10065, 13311], "turn_complete_ms": [4119, 10068, 13465, 17629], "tool_call_cancellations": []}}
+{"scenario": "G2_on", "run": 3, "t_ms": 0, "event": "run_start", "wall": "2026-10-01T08:39:58", "model": "gemini-3.8-live", "sdk": "2.25.0", "behavior": "unset", "guard": "on", "behaviors": {"hold": true, "dedupe": true, "inject": true, "abandon": true}, "grace_s": 1.5, "transcript_timeout_s": 3.0, "on_timeout": "cancel", "dedupe_window_s": 30.0, "stop_after_s": 1.0, "stop_after_request_s": null, "stop_after_model_speech_s": 1.0, "followup": "bring.wav", "latency_s": 7.0, "clips_s": {"book": 2.686, "stop": 2.226, "followup": 2.87}}
+{"scenario": "G2_on", "run": 3, "t_ms": 368, "event": "setup_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 369, "event": "user_audio_start", "label": "book_request", "audio_s": 2.686}
+{"scenario": "G2_on", "run": 3, "t_ms": 564, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "0.160s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 564, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": []}
+{"scenario": "G2_on", "run": 3, "t_ms": 2969, "event": "user_audio_end", "label": "book_request"}
+{"scenario": "G2_on", "run": 3, "t_ms": 4189, "event": "input_transcript", "text": "Book me the 3:00 p.m. slot tomorrow, please."}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "3.800s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please.", "matched": [], "onset_s": 0.564}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "tool_call_received", "call_id": "call_105880", "name": "book_slot", "args": {"slot": "tomorrow 3pm"}, "first": true}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "guard_job_started", "job_id": "job-1", "call_id": "call_105880", "key": "book_slot:{\"slot\":\"tomorrow 15:00\"}", "blocking": false}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 4190, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 4691, "event": "followup_queued", "since_tool_call_ms": 501}
+{"scenario": "G2_on", "run": 3, "t_ms": 4692, "event": "user_audio_start", "label": "followup", "audio_s": 2.87}
+{"scenario": "G2_on", "run": 3, "t_ms": 4827, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "4.520s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 4828, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 3, "t_ms": 7493, "event": "user_audio_end", "label": "followup"}
+{"scenario": "G2_on", "run": 3, "t_ms": 8897, "event": "input_transcript", "text": "While you do that. What should I bring to the appointment?"}
+{"scenario": "G2_on", "run": 3, "t_ms": 8897, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "8.560s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 8897, "event": "guard_utterance_resolved", "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?", "matched": [], "onset_s": 4.828}
+{"scenario": "G2_on", "run": 3, "t_ms": 8897, "event": "audio_start"}
+{"scenario": "G2_on", "run": 3, "t_ms": 8897, "event": "model_speech_after_tool_call", "since_tool_call_ms": 4707}
+{"scenario": "G2_on", "run": 3, "t_ms": 8898, "event": "model_transcript", "text": "I am booking the "}
+{"scenario": "G2_on", "run": 3, "t_ms": 9156, "event": "model_transcript", "text": "3 PM slot"}
+{"scenario": "G2_on", "run": 3, "t_ms": 9349, "event": "model_transcript", "text": " for you now. Please"}
+{"scenario": "G2_on", "run": 3, "t_ms": 9572, "event": "model_transcript", "text": " bring any relevant"}
+{"scenario": "G2_on", "run": 3, "t_ms": 9813, "event": "model_transcript", "text": " documents or identification"}
+{"scenario": "G2_on", "run": 3, "t_ms": 9899, "event": "user_audio_start", "label": "stop", "audio_s": 2.226}
+{"scenario": "G2_on", "run": 3, "t_ms": 9899, "event": "stop_sent", "since_tool_call_ms": 5709, "since_book_audio_end_ms": 6930}
+{"scenario": "G2_on", "run": 3, "t_ms": 10040, "event": "model_transcript", "text": " just"}
+{"scenario": "G2_on", "run": 3, "t_ms": 10133, "event": "voice_activity", "voice_activity_type": "ACTIVITY_START", "audio_offset": "9.880s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 10134, "event": "guard_speech_onset", "source": "voice_activity", "pending_jobs": ["job-1"]}
+{"scenario": "G2_on", "run": 3, "t_ms": 10134, "event": "audio_segment", "closed_by": "interrupted", "first_ms": 8897, "last_ms": 10107, "chunks": 19}
+{"scenario": "G2_on", "run": 3, "t_ms": 10134, "event": "interrupted"}
+{"scenario": "G2_on", "run": 3, "t_ms": 10134, "event": "guard_interrupted_seen", "caused_by_own_note": false}
+{"scenario": "G2_on", "run": 3, "t_ms": 10164, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 11192, "event": "guard_prepared", "job_id": "job-1"}
+{"scenario": "G2_on", "run": 3, "t_ms": 12099, "event": "user_audio_end", "label": "stop"}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "input_transcript", "text": "Actually, stop. Don't book it."}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "guard_utterance_resolved", "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it.", "matched": ["stop", "don't"], "onset_s": 10.134}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "guard_decision", "job_id": "job-1", "call_id": "call_105880", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "abandoned": false}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "guard_cancelled", "job_id": "job-1", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\""}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "guard_tool_response_sent", "call_id": "call_105880", "job_id": "job-1", "response": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}
+{"scenario": "G2_on", "run": 3, "t_ms": 13362, "event": "guard_status_note_sent", "job_id": "job-1", "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}
+{"scenario": "G2_on", "run": 3, "t_ms": 13364, "event": "voice_activity", "voice_activity_type": "ACTIVITY_END", "audio_offset": "13.120s"}
+{"scenario": "G2_on", "run": 3, "t_ms": 13381, "event": "interrupted"}
+{"scenario": "G2_on", "run": 3, "t_ms": 13381, "event": "guard_interrupted_seen", "caused_by_own_note": true}
+{"scenario": "G2_on", "run": 3, "t_ms": 13629, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 14194, "event": "audio_start"}
+{"scenario": "G2_on", "run": 3, "t_ms": 14194, "event": "model_transcript", "text": "The booking was cancelled "}
+{"scenario": "G2_on", "run": 3, "t_ms": 14380, "event": "model_transcript", "text": "before it was made,"}
+{"scenario": "G2_on", "run": 3, "t_ms": 14658, "event": "model_transcript", "text": " so nothing is scheduled."}
+{"scenario": "G2_on", "run": 3, "t_ms": 15021, "event": "audio_segment", "closed_by": "generation_complete", "first_ms": 14194, "last_ms": 14994, "chunks": 15}
+{"scenario": "G2_on", "run": 3, "t_ms": 15021, "event": "generation_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 17805, "event": "turn_complete"}
+{"scenario": "G2_on", "run": 3, "t_ms": 19333, "event": "run_stop_condition", "reason": "settled"}
+{"scenario": "G2_on", "run": 3, "t_ms": 19346, "event": "session_closed"}
+{"scenario": "G2_on", "run": 3, "t_ms": -1, "event": "run_end", "summary": {"scenario": "G2", "run": 3, "guard": "on", "behaviors": "HDIA", "behavior": "unset", "latency_s": 7.0, "n_tool_calls": 1, "tool_call_at_ms": 4190, "stop_sent_at_ms": 9899, "stop_audio_end_ms": 12099, "stop_onset_ms": 10133, "interrupted_ms": 10134, "stop_transcript_ms": 13362, "decision": "cancel @13362: stop intent in user speech: \"Actually, stop. Don't book it.\"", "time_from_stop_to_decision_ms": 3463, "service": "cancelled job-1 @13362 (was prepared)", "cancellation_before_commit": "yes", "unwanted_commit": "no", "double_booking": "no", "duplicates_suppressed": 0, "tool_responses": "cancelled @13362", "notes_ms": "13362", "note_cut_reply": "no", "model_after_stop": "The booking was cancelled before it was made, so nothing is scheduled.", "claim": "claims_not_booked", "actual": "not_booked", "model_statement_consistent": "true", "errors": "-", "done_reason": "settled", "tool_calls": [{"id": "call_105880", "name": "book_slot", "at_ms": 4190, "args": {"slot": "tomorrow 3pm"}}], "model_turns": [{"start_ms": 8898, "text": "I am booking the 3 PM slot for you now. Please bring any relevant documents or identification just"}, {"start_ms": 14194, "text": "The booking was cancelled before it was made, so nothing is scheduled."}], "statement_used": "The booking was cancelled before it was made, so nothing is scheduled.", "note_cuts": [], "reply_after_note": [{"start_ms": 14194, "text": "The booking was cancelled before it was made, so nothing is scheduled."}], "notes": [{"at_ms": 13362, "text": "System note: the booking for tomorrow 3pm was cancelled before it was committed. Nothing is scheduled."}], "decisions": [{"at": 13.361884250072762, "job_id": "job-1", "call_id": "call_105880", "decision": "cancel", "reason": "stop intent in user speech: \"Actually, stop. Don't book it.\"", "state": "held", "at_ms": 13362}], "duplicates": [], "responses": [{"at_ms": 13362, "call_id": "call_105880", "payload": {"status": "cancelled", "detail": "Cancelled before commit because the user asked to stop. Nothing was committed."}}], "utterances": [{"onset_ms": 564, "resolved_ms": 4190, "intent": "other", "how": "activity_end", "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"onset_ms": 4828, "resolved_ms": 8897, "intent": "other", "how": "activity_end", "text": "While you do that. What should I bring to the appointment?"}, {"onset_ms": 10134, "resolved_ms": 13362, "intent": "stop", "how": "transcript", "text": "Actually, stop. Don't book it."}], "vad_events": [{"at_ms": 564, "type": "ACTIVITY_START"}, {"at_ms": 4190, "type": "ACTIVITY_END"}, {"at_ms": 4827, "type": "ACTIVITY_START"}, {"at_ms": 8897, "type": "ACTIVITY_END"}, {"at_ms": 10133, "type": "ACTIVITY_START"}, {"at_ms": 13364, "type": "ACTIVITY_END"}], "user_audio": [{"label": "book_request", "start_ms": 369, "end_ms": 2969}, {"label": "followup", "start_ms": 4692, "end_ms": 7493}, {"label": "stop", "start_ms": 9899, "end_ms": 12099}], "input_transcripts": [{"at_ms": 4189, "text": "Book me the 3:00 p.m. slot tomorrow, please."}, {"at_ms": 8897, "text": "While you do that. What should I bring to the appointment?"}, {"at_ms": 13362, "text": "Actually, stop. Don't book it."}], "commits": [], "cancelled": [{"job_id": "job-1", "at_ms": 13362, "was": "prepared"}], "interrupted_all_ms": [10134, 13381], "turn_complete_ms": [4190, 10164, 13629, 17805], "tool_call_cancellations": []}}

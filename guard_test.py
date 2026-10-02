@@ -19,6 +19,9 @@ stop_test.py, audio mode only):
      with ms since session start; after the run, TruthCheck compares the model's
      post-stop statement with the fake service. aggregate.py rebuilds
      results/summary.md from the JSONL files.
+  5. --save-audio (as in the stop test) writes the model's output audio of each run as a
+     WAV plus a JSON sidecar with chunk arrival times, copies of the user clips with
+     their send times, and the guard's decisions (results/audio_out/).
 
 The API key is read only from GEMINI_API_KEY (.env here or the environment) and is
 never printed. Exit status 3 means a quota or billing error stopped the runs.
@@ -31,6 +34,7 @@ import asyncio
 import json
 import os
 import re
+import shutil
 import sys
 import time
 import wave
@@ -67,6 +71,7 @@ AUDIO_DIR = HERE / "assets" / "audio"
 AUDIO_RATE = 16000
 AUDIO_MIME = f"audio/pcm;rate={AUDIO_RATE}"
 CHUNK_S = 0.1
+MODEL_AUDIO_RATE = 24000  # Hz; used for --save-audio only if the mime type has no rate
 
 # ---------------------------------------------------------------- redaction --
 
@@ -353,6 +358,8 @@ class RunState:
     model_speech_event: asyncio.Event = field(default_factory=asyncio.Event)
     tasks: list[asyncio.Task] = field(default_factory=list)
     events: list[dict] = field(default_factory=list)  # everything emitted, for note_cuts()
+    audio_out: list[dict] = field(default_factory=list)  # --save-audio: per-chunk metadata
+    audio_data: list[bytes] = field(default_factory=list)  # --save-audio: chunk bytes
     wall: str = ""
 
     def __post_init__(self) -> None:
@@ -379,8 +386,12 @@ class RunState:
         if not self.ending:
             self.errors.append(f"ws_closed code={code} {reason}".strip())
 
-    def audio_chunk(self) -> None:
+    def audio_chunk(self, data: bytes = b"", mime: str = "") -> None:
         t = self.clock.ms()
+        if getattr(self.args, "save_audio", False):
+            self.audio_out.append({"t_ms": t, "bytes": len(data), "mime_type": mime,
+                                   "turn": self.turn_idx})
+            self.audio_data.append(data)
         if self.audio_seg is None:
             self.audio_seg = {"first_ms": t, "last_ms": t, "chunks": 0}
             self.emit("audio_start")
@@ -470,7 +481,7 @@ def handle_server_content(st: RunState, sc: types.LiveServerContent) -> None:
     if sc.model_turn and sc.model_turn.parts:
         for part in sc.model_turn.parts:
             if part.inline_data is not None and (part.inline_data.mime_type or "").startswith("audio"):
-                st.audio_chunk()
+                st.audio_chunk(part.inline_data.data or b"", part.inline_data.mime_type or "")
             elif part.text and not part.thought:
                 t = st.emit("model_text", text=part.text)
                 st.texts.append((t, st.turn_idx, part.text))
@@ -874,7 +885,10 @@ def scenario_meta(args: argparse.Namespace) -> str:
             f"grace {cfg.grace_s} s, transcript timeout {cfg.transcript_timeout_s} s, "
             f"on timeout {cfg.on_timeout}, dedupe window {cfg.dedupe_window_s} s), "
             f"behavior={args.behavior}, {stop}, service prepare {args.latency} s then instant "
-            "commit. Times are ms since session start; `behaviors` is H/D/I/A for "
+            "commit"
+            + (", model output audio saved (--save-audio) to results/audio_out/"
+               f"{args.name}_run<N>_model.wav" if getattr(args, "save_audio", False) else "")
+            + ". Times are ms since session start; `behaviors` is H/D/I/A for "
             "hold/dedupe/inject/abandon.")
 
 
@@ -883,6 +897,105 @@ def scenario_table(name: str, meta: str, rows: list[dict]) -> str:
              "| " + " | ".join(COLUMNS) + " |", "|" + "---|" * len(COLUMNS)]
     lines += ["| " + " | ".join(md(r.get(c, "-")) for c in COLUMNS) + " |" for r in rows]
     return "\n".join(lines) + "\n"
+
+
+# --------------------------------------------------------------- save audio --
+
+
+def mime_rate(mime: str) -> int | None:
+    m = re.search(r"rate=(\d+)", mime or "")
+    return int(m.group(1)) if m else None
+
+
+def save_run_audio(st: RunState, out_dir: Path) -> dict:
+    """--save-audio, same file layout as the stop test's harness:
+    <name>_run<N>_model.wav (model output, chunks concatenated in arrival order),
+    <name>_run<N>_user_<label>.wav (copies of the clips sent), and
+    <name>_run<N>_audio.json (chunk arrival times, clip send times, key events and the
+    guard's decisions)."""
+    a, g, svc = st.args, st.guard, st.service
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"{a.name}_run{st.run}"
+    mimes = sorted({c["mime_type"] for c in st.audio_out})
+    rates = {mime_rate(m) for m in mimes}
+    if len(rates) == 1 and None not in rates:
+        rate, rate_source = rates.pop(), "mime type"
+    else:
+        rate, rate_source = MODEL_AUDIO_RATE, f"default (mime types: {mimes or 'none'})"
+    chunks, offset = [], 0
+    for meta, data in zip(st.audio_out, st.audio_data):
+        chunks.append({"t_ms": meta["t_ms"], "turn": meta["turn"], "bytes": len(data),
+                       "wav_offset_ms": round(offset / 2 / rate * 1000, 1),
+                       "duration_ms": round(len(data) / 2 / rate * 1000, 1)})
+        offset += len(data)
+    pcm = b"".join(st.audio_data)
+    if len(pcm) % 2:
+        pcm = pcm[:-1]
+    wav_path = out_dir / f"{stem}_model.wav"
+    if pcm:
+        with wave.open(str(wav_path), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(rate)
+            w.writeframes(pcm)
+    user = []
+    for u in st.utterances:
+        src = Path(a.audio_paths[u["label"]])
+        dst = out_dir / f"{stem}_user_{u['label']}.wav"
+        shutil.copyfile(src, dst)
+        user.append({"label": u["label"], "file": dst.name, "source": src.name,
+                     "sent_start_ms": u.get("start_ms"), "sent_end_ms": u.get("end_ms"),
+                     "duration_ms": round(pcm_seconds(load_pcm(src)) * 1000, 1),
+                     "sample_rate": AUDIO_RATE})
+    sidecar = {
+        "scenario": a.name, "run": st.run, "wall": st.wall, "model": a.model,
+        "guard": a.guard,
+        "time_base": "ms since session start (time.monotonic() when the run started). "
+                     "t_ms of a model chunk is when the harness received it; "
+                     "sent_start_ms / sent_end_ms of a user clip are when its first / last "
+                     "100 ms chunk was sent.",
+        "model_audio": {
+            "file": wav_path.name if pcm else None,
+            "mime_types": mimes, "sample_rate": rate, "sample_rate_from": rate_source,
+            "channels": 1, "sample_width_bits": 16,
+            "duration_s": round(len(pcm) / 2 / rate, 3), "chunks": len(chunks),
+            "first_chunk_ms": chunks[0]["t_ms"] if chunks else None,
+            "last_chunk_ms": chunks[-1]["t_ms"] if chunks else None,
+            "note": "Chunks are concatenated in arrival order with no gaps. The server "
+                    "sends audio faster than real time, so wav_offset_ms is not the "
+                    "arrival time: place each chunk at its t_ms or later. A client that "
+                    "plays audio drops what is still queued when `interrupted` arrives; "
+                    "this file keeps everything received.",
+        },
+        "chunks": chunks,
+        "user_clips": user,
+        "events": {
+            "tool_calls": st.tool_calls,
+            "tool_responses": [{"at_ms": st.ms(r["at"]), "call_id": r["call_id"],
+                                "status": r["status"], "payload": r["payload"]}
+                               for r in (g.responses if g else [])],
+            "service": {"prepared": svc.prepared, "committed": svc.committed,
+                        "cancelled": svc.cancelled},
+            "guard_decisions": [d | {"at_ms": st.ms(d["at"])} for d in (g.decisions if g else [])],
+            "status_notes": [{"at_ms": st.ms(n["at"]), "text": n["text"]}
+                             for n in (g.notes if g else [])],
+            "cancellations": st.cancellations,
+            "interrupted_ms": st.interrupted_ms,
+            "generation_complete_ms": st.generation_complete_ms,
+            "turn_complete_ms": st.turn_complete_ms,
+            "voice_activity": st.vad_events,
+            "stop_sent_at_ms": st.stop_sent_at_ms,
+            "stop_audio_end_ms": st.stop_audio_end_ms,
+            "model_transcript": [{"t_ms": t, "turn": turn, "text": x} for t, turn, x in st.texts],
+            "input_transcript": [{"t_ms": t, "text": x} for t, x in st.input_texts],
+        },
+    }
+    side_path = out_dir / f"{stem}_audio.json"
+    side_path.write_text(redact(json.dumps(sidecar, indent=1, ensure_ascii=False, default=str)),
+                         encoding="utf-8")
+    return {"model_wav": wav_path.name if pcm else None, "sidecar": side_path.name,
+            "model_audio_s": sidecar["model_audio"]["duration_s"], "sample_rate": rate,
+            "user_clips": [u["file"] for u in user]}
 
 
 # -------------------------------------------------------------------- main --
@@ -927,11 +1040,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--run-timeout", type=float, default=50.0)
     p.add_argument("--between-runs", type=float, default=2.0)
     p.add_argument("--results-dir", default=str(HERE / "results"))
+    p.add_argument("--save-audio", action="store_true",
+                   help="write the model's output audio per run to results/audio_out/"
+                        "<name>_run<N>_model.wav plus a JSON sidecar with chunk arrival "
+                        "times, and copies of the user clips with their send times")
     p.add_argument("-v", "--verbose", action="store_true")
     args = p.parse_args(argv)
     if args.stop_after_model_speech is not None and args.stop_after_request is not None:
         p.error("--stop-after-model-speech and --stop-after-request are exclusive")
     args.clips = {}
+    args.audio_paths = {"book_request": args.book_audio, "stop": args.stop_audio}
+    if args.followup_audio is not None:
+        args.audio_paths["followup"] = args.followup_audio
     return args
 
 
@@ -965,6 +1085,12 @@ async def amain(args: argparse.Namespace, connect: Callable[..., Any] | None = N
             try:
                 st = await run_once(args, run, out, connect)
                 row = summarize(st)
+                if args.save_audio:
+                    try:
+                        row["saved_audio"] = save_run_audio(st, results / "audio_out")
+                    except Exception as exc:
+                        row["saved_audio"] = {"error": err_text(exc)}
+                        out.write(run, -1, "save_audio_failed", detail=err_text(exc))
                 quota = next((e for e in st.errors if QUOTA_RE.search(e)), None)
             except Exception as exc:  # never let one run kill the scenario
                 quota = err_text(exc) if QUOTA_RE.search(err_text(exc)) else None

@@ -355,6 +355,46 @@ arrives too late for the first reply.
 - **A on run 1 was a smoke check.** It ran on its own first, and runs 2-3 were
   appended with `--first-run 2`. The guard code was identical.
 
+## Audio capture for the demo clip (2026-10-02)
+
+`guard_test.py --save-audio`, ported from the stop test with the same file layout,
+writes the model's output audio of each run to
+`results/audio_out/<name>_run<N>_model.wav`, plus a JSON sidecar with the chunk
+arrival times, the user clips' send times and the guard's decisions. The guard's
+runtime code did not change.
+
+One extra session of scenario C with the full guard was recorded this way on
+2026-10-02, 20:49 CEST, in `results/C_on_audio.jsonl`. Its scenario label is `C_audio`,
+so the tables above do not count it: it was kept or retried for the clip, not measured.
+The rule was: cancelled before commit, status note sent, and a clear, correct reply that
+the note did not cut. Up to 3 tries were allowed. Run 1 met the rule and was kept:
+
+- the guard cancelled the job at 8720 ms, on the stop transcript, 0.50 s after
+  `prepare` finished;
+- the model re-issued `book_slot` with a new id at 8721 ms, and dedupe answered it with
+  `cancelled` at 8724 ms;
+- the note went out at 8726 ms, before any reply had started;
+- the model said "The booking was cancelled and nothing is scheduled." from 10063 ms
+  (2.62 s of audio). No `toolCallCancellation` arrived.
+
+`make_clip.py` renders `results/clip/before-after.mp4` (33.7 s, 1280x720, H.264 + AAC)
+and a silent GIF. It shows a title card, the stop test's clip of the same scenario
+without the guard, a second card, then this run in real time with the model's audio.
+One gain normalizes both halves.
+
+The clip script needs the stop-test repository cloned next to this one, because the
+"without the guard" half and the drawing code come from it:
+
+```sh
+git clone https://github.com/frontier-on-cloud/gemini-live-stop-test ../gemini-live-stop-test
+uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
+```
+
+
+```sh
+uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
+```
+
 ## Not a library yet
 
 This is a reference pattern for discussion, not a package. There is no PyPI
@@ -371,4 +411,6 @@ prompt and one fake service. Copy the parts that fit your own tool handling.
 - `aggregate.py`: rebuilds `results/summary.md` and the before/after table, and
   rescores the stop-test JSONL.
 - `test_commit_guard.py`: 18 offline tests that replay recorded timelines.
+- `make_clip.py`: the before/after clip. It reads the sibling `gemini-live-stop-test`
+  folder for the "before" half and its drawing code.
 - `run_guard.sh`, `assets/audio/`, `results/`.

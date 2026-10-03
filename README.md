@@ -199,8 +199,9 @@ is in `results/<scenario>_<mode>.jsonl`.
   every re-issue, because each came within 2 s of a stop. Dedupe is the
   safeguard that does not depend on that timing.
 - **Abandon (4)** marked the call abandoned at the stop's onset in every C run
-  with the guard on (9 of 9) and skipped the response to the dead id. The model
-  re-issued `book_slot` in 4 of those 9 runs. Each re-issue got the existing
+  with abandon handling on (6 of 6: the 3 main runs and the 3 no-inject ablation
+  runs) and skipped the response to the dead id. The model re-issued `book_slot`
+  in 4 of those 6 runs (main run 2 and all three no-inject runs). Each re-issue got the existing
   job's status on its live id, and each of those replies was right. When there
   was no re-issue, the model got no `FunctionResponse` at all, and the note was
   its only source of status. Behavior 4 also holds a BLOCKING commit on its
@@ -394,6 +395,15 @@ uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
 ```sh
 uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
 ```
+
+## Corrections
+
+- 2026-10-03: the abandon count read "9 of 9" runs with "4 of those 9" re-issues.
+  The logs hold 6 C runs with abandon handling on (`results/C_on.jsonl` and
+  `results/C_noinject.jsonl`, 3 each; the no-hold ablation ran with abandon off),
+  with a re-issue in 4 of them. Text corrected to 6 of 6 and 4 of 6. No run was
+  added or removed. The recorded clip session (`results/C_on_audio.jsonl`) is not
+  counted, as before.
 
 ## Not a library yet
 

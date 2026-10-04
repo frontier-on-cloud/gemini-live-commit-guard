@@ -1,0 +1,214 @@
+{
+ "scenario": "C_on_two_voices",
+ "run": 1,
+ "wall": "2026-10-04T15:13:47",
+ "model": "gemini-3.8-live",
+ "guard": "on",
+ "time_base": "ms since session start (time.monotonic() when the run started). t_ms of a model chunk is when the harness received it; sent_start_ms / sent_end_ms of a user clip are when its first / last 100 ms chunk was sent.",
+ "model_audio": {
+  "file": "C_on_two_voices_run1_model.wav",
+  "mime_types": [
+   "audio/pcm;rate=24000"
+  ],
+  "sample_rate": 24000,
+  "sample_rate_from": "mime type",
+  "channels": 1,
+  "sample_width_bits": 16,
+  "duration_s": 2.9,
+  "chunks": 10,
+  "first_chunk_ms": 8849,
+  "last_chunk_ms": 9440,
+  "note": "Chunks are concatenated in arrival order with no gaps. The server sends audio faster than real time, so wav_offset_ms is not the arrival time: place each chunk at its t_ms or later. A client that plays audio drops what is still queued when `interrupted` arrives; this file keeps everything received."
+ },
+ "chunks": [
+  {
+   "t_ms": 8849,
+   "turn": 2,
+   "bytes": 12480,
+   "wav_offset_ms": 0.0,
+   "duration_ms": 260.0
+  },
+  {
+   "t_ms": 8871,
+   "turn": 2,
+   "bytes": 7680,
+   "wav_offset_ms": 260.0,
+   "duration_ms": 160.0
+  },
+  {
+   "t_ms": 8931,
+   "turn": 2,
+   "bytes": 13440,
+   "wav_offset_ms": 420.0,
+   "duration_ms": 280.0
+  },
+  {
+   "t_ms": 8957,
+   "turn": 2,
+   "bytes": 3840,
+   "wav_offset_ms": 700.0,
+   "duration_ms": 80.0
+  },
+  {
+   "t_ms": 9031,
+   "turn": 2,
+   "bytes": 13440,
+   "wav_offset_ms": 780.0,
+   "duration_ms": 280.0
+  },
+  {
+   "t_ms": 9133,
+   "turn": 2,
+   "bytes": 23040,
+   "wav_offset_ms": 1060.0,
+   "duration_ms": 480.0
+  },
+  {
+   "t_ms": 9284,
+   "turn": 2,
+   "bytes": 28800,
+   "wav_offset_ms": 1540.0,
+   "duration_ms": 600.0
+  },
+  {
+   "t_ms": 9355,
+   "turn": 2,
+   "bytes": 17280,
+   "wav_offset_ms": 2140.0,
+   "duration_ms": 360.0
+  },
+  {
+   "t_ms": 9440,
+   "turn": 2,
+   "bytes": 17280,
+   "wav_offset_ms": 2500.0,
+   "duration_ms": 360.0
+  },
+  {
+   "t_ms": 9440,
+   "turn": 2,
+   "bytes": 1920,
+   "wav_offset_ms": 2860.0,
+   "duration_ms": 40.0
+  }
+ ],
+ "user_clips": [
+  {
+   "label": "book_request",
+   "file": "C_on_two_voices_run1_user_book_request.wav",
+   "source": "book.wav",
+   "sent_start_ms": 301,
+   "sent_end_ms": 2601,
+   "duration_ms": 2379.1,
+   "sample_rate": 16000
+  },
+  {
+   "label": "stop",
+   "file": "C_on_two_voices_run1_user_stop.wav",
+   "source": "stop.wav",
+   "sent_start_ms": 4727,
+   "sent_end_ms": 6429,
+   "duration_ms": 1783.8,
+   "sample_rate": 16000
+  }
+ ],
+ "events": {
+  "tool_calls": [
+   {
+    "id": "fc_8540672674248434330",
+    "name": "book_slot",
+    "at_ms": 3725,
+    "args": {
+     "slot": "tomorrow at 3pm"
+    }
+   }
+  ],
+  "tool_responses": [],
+  "service": {
+   "prepared": [],
+   "committed": [],
+   "cancelled": [
+    {
+     "job_id": "job-1",
+     "at_ms": 7659,
+     "was": "preparing"
+    }
+   ]
+  },
+  "guard_decisions": [
+   {
+    "at": 7.658404207992135,
+    "job_id": "job-1",
+    "call_id": "fc_8540672674248434330",
+    "decision": "cancel",
+    "reason": "stop intent in user speech: \"Actually stop, don't book it.\"",
+    "state": "preparing",
+    "at_ms": 7658
+   }
+  ],
+  "status_notes": [
+   {
+    "at_ms": 7659,
+    "text": "System note: the booking for tomorrow at 3pm was cancelled before it was committed. Nothing is scheduled."
+   }
+  ],
+  "cancellations": [],
+  "interrupted_ms": [
+   4881
+  ],
+  "generation_complete_ms": [
+   9467
+  ],
+  "turn_complete_ms": [
+   4881,
+   11749
+  ],
+  "voice_activity": [
+   {
+    "at_ms": 502,
+    "type": "ACTIVITY_START"
+   },
+   {
+    "at_ms": 3725,
+    "type": "ACTIVITY_END"
+   },
+   {
+    "at_ms": 4881,
+    "type": "ACTIVITY_START"
+   },
+   {
+    "at_ms": 7658,
+    "type": "ACTIVITY_END"
+   }
+  ],
+  "stop_sent_at_ms": 4727,
+  "stop_audio_end_ms": 6429,
+  "model_transcript": [
+   {
+    "t_ms": 8849,
+    "turn": 2,
+    "text": "No booking was "
+   },
+   {
+    "t_ms": 9031,
+    "turn": 2,
+    "text": "made, so nothing"
+   },
+   {
+    "t_ms": 9284,
+    "turn": 2,
+    "text": " is scheduled."
+   }
+  ],
+  "input_transcript": [
+   {
+    "t_ms": 3724,
+    "text": "Book me the 3:00 p.m. slot tomorrow, please."
+   },
+   {
+    "t_ms": 7658,
+    "text": "Actually stop, don't book it."
+   }
+  ]
+ }
+}

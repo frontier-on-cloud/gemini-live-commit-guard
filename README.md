@@ -329,7 +329,8 @@ arrives too late for the first reply.
   `cancel` always succeeds. A real backend needs its own reservation, expiry and
   idempotency. The grace window adds 1.5 s to every commit.
 - **Synthetic speech.** One `say` voice, one wording per utterance, digital
-  silence, no noise, and no echo of the model's own audio. With real
+  silence, no noise, and no echo of the model's own audio. (The 2026-10-04 clip
+  sessions use two Kokoro voices; they are not measured.) With real
   microphones, `ACTIVITY_START` can fire on noise or on the model's own audio.
   The guard then holds the commit until the transcript, and with no transcript
   `on_timeout` cancels the job.
@@ -396,6 +397,111 @@ uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
 uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip.py
 ```
 
+## Two-voice demo clip (2026-10-04)
+
+`make_clip_v2.py` renders a second before/after clip in two formats, from two sessions
+recorded for it. The first clip (`before-after.mp4`, section above) is unchanged.
+
+- `results/clip/before-after-v2.mp4`: 1280x720, 47.8 s, with a GIF (`before-after-v2.gif`,
+  800 px, no audio). Same layout as the first clip: conversation, booking service, events
+  strip.
+- `results/clip/before-after-v2-feed.mp4`: 1080x1350 (4:5), 47.8 s, for phone feeds. It keeps
+  the conversation captions and one booking status block in large text (body 34 to 40 px),
+  drops the events strip and the call details, and uses the light palette of
+  frontier-on-cloud.github.io. A one-line source note stays at the bottom.
+
+**Two synthetic voices, one audio stream.** This clip is a two-person demo: Person 1 asks
+for the booking, Person 2 says stop. The two voices are synthetic. The measured results in
+the tables above used a single voice (macOS `say`). The Live API session does not tell
+speakers apart: it receives one audio stream, and both people's speech reaches the model as
+the same user input. The second voice makes the demo easier to follow; it does not test
+speaker separation.
+
+| line | voice | file | duration |
+|---|---|---|---|
+| "Book me the 3pm slot tomorrow, please." | Kokoro-82M `af_heart` | `assets/audio/af_heart/book.wav` | 2.379 s |
+| "Actually, stop. Don't book it." | Kokoro-82M `am_michael` | `assets/audio/am_michael/stop.wav` | 1.784 s |
+
+Same wording as the measured clips. Both were generated offline with
+`../voice-clips/make_voices.py` ([Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) at
+commit `f3ff3571791e39611d31c381e3a41a3af07b4987`, seed 0, 16 kHz 16-bit mono PCM, -3 dBFS
+peak, 50 ms of silence each side). Weights, voice packs and inference code are Apache-2.0,
+which sets no condition on generated audio. The files are byte-identical to that folder's
+`samples/` (SHA-256 `5463e286973e...` and `b0e3473ea336...`); `book.wav` is also the copy in
+`gemini-live-resume-test/assets/audio/af_heart/`. The audio was sent to the model as live
+input, as in every session here; nothing was replaced afterwards.
+
+**Sessions.** Scenario C timing (BLOCKING, stop clip 1.0 s after the tool call, 4 s
+prepare), `--save-audio`, written to `results/clip/` (JSONL, model WAV, sidecar), label
+`C_clip`. `aggregate.py` reads `results/*.jsonl` only, so none of them is in the tables. The
+rule for the clip: the first session per mode that shows the behavior. Guard off: a commit
+after the stop. Guard on: no commit and a correct reply. Four sessions in all, on
+2026-10-04, each one kept:
+
+- `C_off_two_voices` (15:13 CEST), used. Person 2's clip started at 4.75 s, `interrupted`
+  came at 4.90 s and the stop transcript at 7.74 s. The client committed BK-1001 at 7.75 s
+  and answered the call with `booked`. The model re-issued `book_slot` with a new id at
+  8.20 s, and BK-1002 was committed at 12.21 s. The model said "The 3 p.m. slot for tomorrow
+  was already booked before the cancellation request came through." from 12.90 s. No
+  `toolCallCancellation` arrived.
+- `C_on_two_voices` (15:13 CEST), used. Person 2's clip started at 4.73 s. `interrupted` at
+  4.88 s marked the call abandoned. The stop transcript at 7.66 s matched "stop" and
+  "don't", and the guard cancelled the job at 7.66 s, 3.93 s into the 4 s prepare, so no
+  commit was ever due. The model did not re-issue the call, the dead id got no response,
+  and the status note went out at 7.66 s. The model said "No booking was made, so nothing is
+  scheduled." from 8.85 s. The note cut no reply.
+- `C_off_af_heart` and `C_on_af_heart` (15:06 CEST): recorded first with `af_heart` for
+  both lines (`assets/audio/af_heart/stop.wav`), before the two-voice version was decided.
+  Kept, not used in the clip. Guard off: BK-1001 committed at 7.89 s, 3.00 s after the stop
+  clip started; the model then said "No booking was made, so your request is cancelled."
+  Guard on: cancelled at 7.62 s during prepare; the model said "The booking has not been
+  made. Nothing is scheduled."
+
+**Structure.** Both formats share the timing and the audio track.
+
+| part | starts at | content |
+|---|---|---|
+| cold open | 0.0 s | "Did the booking happen?": the outcome of each session side by side, labelled "Excerpt", with the guard-on reply's audio (0.4-3.3 s) |
+| card | 4.0 s | "Without the guard", and the voices |
+| guard off | 6.0 s | `C_off_two_voices` in real time to `session_closed` (19.50 s), then 1 s still; commits at 13.75 s and 18.20 s in the clip |
+| card | 26.5 s | "With the guard" |
+| guard on | 28.5 s | `C_on_two_voices` in real time to `session_closed` (13.27 s), then 1 s still; cancel at 36.16 s in the clip |
+| results | 42.8 s | 5 s: what each session did, with the times and the verbatim replies, then the code link |
+
+Nothing is time-compressed. Neither session has a stretch where nothing happens: the waits
+are the server's transcription latency (1.1 to 1.3 s after the last chunk of each clip), the
+4 s prepare of
+each booking job and the model's delay before it speaks. The 1.5 s after the last reply is
+the harness's quiet window before it closes the session.
+
+Captions are verbatim: the people's lines from the server's input transcription, the
+model's from its output transcription, the status note from the guard's log. Every time is
+read from the JSONL and the sidecars, in ms since session start. The results slide is built
+from the same events and refuses to render if a run does not match its sentences. Audio:
+the clips the harness sent (checked byte for byte against its saved copies) at their send
+times, and the model's audio placed as a Live client plays it: each chunk at its arrival
+or right after the previous one, queued audio dropped on `interrupted`. One gain (-1 dBFS
+peak) for the whole track; cards and the results slide are silent.
+
+To rebuild (the sessions need `GEMINI_API_KEY` in `.env`; each run appends to its JSONL, so
+use a new `--name` for a new take):
+
+```sh
+uv run guard_test.py --name C_off_two_voices --scenario C_clip --guard off -n 1 \
+  --behavior BLOCKING --stop-after 1.0 --latency 4.0 \
+  --book-audio assets/audio/af_heart/book.wav --stop-audio assets/audio/am_michael/stop.wav \
+  --results-dir results/clip --save-audio
+uv run guard_test.py --name C_on_two_voices --scenario C_clip --guard on -n 1 \
+  --behavior BLOCKING --stop-after 1.0 --latency 4.0 \
+  --book-audio assets/audio/af_heart/book.wav --stop-audio assets/audio/am_michael/stop.wav \
+  --results-dir results/clip --save-audio
+uv run --with imageio-ffmpeg --with pillow --with numpy python make_clip_v2.py   # both formats
+```
+
+The rendering needs no other repository. To regenerate the voices, run `uv sync && uv run
+python make_voices.py` in `../voice-clips` and copy `samples/af_heart/book.wav` and
+`samples/am_michael/stop.wav` here.
+
 ## Corrections
 
 - 2026-10-03: the abandon count read "9 of 9" runs with "4 of those 9" re-issues.
@@ -423,4 +529,7 @@ prompt and one fake service. Copy the parts that fit your own tool handling.
 - `test_commit_guard.py`: 18 offline tests that replay recorded timelines.
 - `make_clip.py`: the before/after clip. It reads the sibling `gemini-live-stop-test`
   folder for the "before" half and its drawing code.
-- `run_guard.sh`, `assets/audio/`, `results/`.
+- `make_clip_v2.py`: the two-voice clip, 16:9 and 4:5 feed versions, from the sessions in
+  `results/clip/`. Runs on its own.
+- `run_guard.sh`, `assets/audio/` (`af_heart/` and `am_michael/`: the Kokoro clips of the
+  2026-10-04 clip sessions), `results/`.
